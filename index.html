@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jocarsa-pink Demo</title>
+  <!-- Include the CSS for jocarsa-pink -->
+  <link rel="stylesheet" href="jocarsa | pink.css">
+  <style>
+    /* Some basic styles for the demo page (optional) */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    .demo-section {
+      margin: 20px 0;
+    }
+    .demo-section button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>jocarsa-pink Library Demo</h1>
+  
+  <div class="demo-section">
+    <p title="This is a tooltip for a paragraph">
+      Hover over or click the '?' button to highlight this paragraph and display its title.
+    </p>
+    <p>
+      This paragraph has no <code>title</code>, so it won't be highlighted.
+    </p>
+  </div>
+
+  <div class="demo-section">
+    <h2 title="Header tooltip here">Section Title</h2>
+    <p title="Another tooltip on this paragraph">
+      Click the '?' button (top-right) to see the tooltip for this paragraph.
+    </p>
+  </div>
+
+  <div class="demo-section">
+    <h2>Dynamic Title Creation</h2>
+    <button onclick="createDynamicItem()">
+      Create a dynamically titled element
+    </button>
+    <div id="dynamic-area" style="margin-top: 10px;">
+      <!-- Dynamically created elements will appear here -->
+    </div>
+  </div>
+
+  <!-- Include the JS for jocarsa-pink -->
+  <script src="jocarsa | pink.js"></script>
+  <script>
+    function createDynamicItem() {
+      const newDiv = document.createElement('div');
+      newDiv.title = "I'm a dynamically created element!";
+      newDiv.textContent = "This element was added after the page loaded.";
+      newDiv.style.marginTop = '10px';
+      document.getElementById('dynamic-area').appendChild(newDiv);
+    }
+  </script>
+</body>
+</html>
+
