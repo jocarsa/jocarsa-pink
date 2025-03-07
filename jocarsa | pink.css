@@ -29,7 +29,7 @@
 /* Highlighted elements */
 .jocarsa-pink-highlight {
   /* Add a red box-shadow or border to highlight the element */
-  box-shadow: 0 0 3px 2px red;
+  box-shadow: 0 0 3px 2px pink;
   position: relative; /* Ensure we can place floating text absolutely */
 }
 
