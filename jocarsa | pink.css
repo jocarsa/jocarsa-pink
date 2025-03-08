@@ -20,10 +20,12 @@
   user-select: none;
   transition: all 0.2s;
   opacity:0.2;
+  filter: saturate(0);
 }
 .jocarsa-pink-help-button:hover {
   background-color: #ff85c8;
   opacity:1;
+  filter: saturate(1);
 }
 
 /* Highlighted elements */
