@@ -26,7 +26,6 @@
    * currently in the DOM that have the 'title' attribute.
    */
   function activateHelpMode() {
-    // Find all elements with a title attribute
     const elementsWithTitle = document.querySelectorAll('[title]');
     elementsWithTitle.forEach((el) => {
       el.classList.add('jocarsa-pink-highlight');
@@ -52,13 +51,9 @@
     const btn = document.createElement('div');
     btn.className = 'jocarsa-pink-help-button';
     btn.textContent = '?';
-
-    // Attach toggle event
     btn.addEventListener('click', () => {
       toggleHelpMode();
     });
-
-    // Insert into the body
     document.body.appendChild(btn);
   }
 

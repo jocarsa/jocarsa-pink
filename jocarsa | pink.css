@@ -9,7 +9,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: #ff69b4; /* Pink-ish background (choose your color) */
+  background-color: #ff69b4; /* Pink-ish background */
   border: 2px solid #fff;
   color: #fff;
   font-weight: bold;
@@ -19,24 +19,25 @@
   cursor: pointer;
   user-select: none;
   transition: all 0.2s;
-  opacity:0.2;
+  opacity: 0.2;
   filter: saturate(0);
 }
 .jocarsa-pink-help-button:hover {
   background-color: #ff85c8;
-  opacity:1;
+  opacity: 1;
   filter: saturate(1);
 }
 
-/* Highlighted elements */
+/* Highlighted elements with an outline offset to simulate margin */
 .jocarsa-pink-highlight {
-  /* Add a red box-shadow or border to highlight the element */
-  box-shadow: 0 0 3px 2px pink;
-  position: relative; /* Ensure we can place floating text absolutely */
+  position: relative; /* Ensure proper positioning for pseudo-elements */
+  /*box-shadow: 0 0 3px 2px pink;*/ /* Existing shadow */
+  outline: 2px solid pink;      /* Outline to highlight the element */
+  outline-offset: 8px;         /* Creates a gap between the element and the outline */
+  border-radius:30px;
 }
 
-/* Floating title text. This uses the built-in title attribute
-   via the CSS content property. */
+/* Floating title text using the title attribute */
 .jocarsa-pink-highlight::after {
   content: attr(title);
   position: absolute;
@@ -46,7 +47,7 @@
   font-size: 12px;
   border: 1px solid red;
   border-radius: 3px;
-  top: -30px;     /* Adjust to position the tooltip above element */
+  top: -30px;     /* Position above the element */
   left: 0;
   white-space: nowrap;
   z-index: 999999;
@@ -54,7 +55,7 @@
   opacity: 0.9;
 }
 
-/* Simple arrow or triangular tip for the floating text, optional */
+/* Optional: Simple arrow or triangular tip for the floating text */
 .jocarsa-pink-highlight::before {
   content: "";
   position: absolute;
