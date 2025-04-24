@@ -1,11 +1,11 @@
 // File: jocarsa-pink.js
-/*! jocarsa-pink library v1.1
- *  A tooltip helper that smart-positions towards the screen center.
+/*! jocarsa-pink library v1.2
+ *  A tooltip helper that smart-positions towards the screen center,
+ *  using each element’s full width/height to decide placement.
  *  (C) 2025 - Jocarsa - MIT License
  */
 (function () {
   let helpModeActive = false;
-  // Store a map of each element → its tooltip node
   const tooltips = new WeakMap();
 
   function toggleHelpMode() {
@@ -21,55 +21,55 @@
     const centerY = vh / 2;
 
     elements.forEach(el => {
-      // 1) Highlight the element
       el.classList.add('jocarsa-pink-highlight');
 
-      // 2) Create tooltip DIV
       const tip = document.createElement('div');
       tip.className = 'jocarsa-pink-tooltip';
       tip.textContent = el.getAttribute('title');
       document.body.appendChild(tip);
       tooltips.set(el, tip);
 
-      // 3) Compute element position and decide where tooltip goes
       const rect = el.getBoundingClientRect();
-      const placeRight = rect.left < centerX;
-      const placeBelow = rect.top < centerY;
 
-      // Measure tooltip dimensions (must do after insertion)
+      // Compute element’s center
+      const elCenterX = rect.left + rect.width  / 2;
+      const elCenterY = rect.top  + rect.height / 2;
+
+      // Decide horizontal: if element’s center is left of screen center, place tooltip to right
+      const placeRight = elCenterX < centerX;
+      // Decide vertical: if element’s center is above screen center, place tooltip below
+      const placeBelow = elCenterY < centerY;
+
+      // Measure tooltip
       const { offsetWidth: tw, offsetHeight: th } = tip;
       let top, left;
 
-      // Vertical placement
+      // Vertical offset
       if (placeBelow) {
-        top = window.scrollY + rect.bottom + 6;
+        top  = window.scrollY + rect.bottom + 6;
       } else {
-        top = window.scrollY + rect.top - th - 6;
+        top  = window.scrollY + rect.top    - th    - 6;
       }
 
-      // Horizontal placement
+      // Horizontal offset
       if (placeRight) {
-        left = window.scrollX + rect.right + 6;
+        left = window.scrollX + rect.right  + 6;
       } else {
-        left = window.scrollX + rect.left - tw - 6;
+        left = window.scrollX + rect.left   - tw    - 6;
       }
 
-      // 4) Position it
-      tip.style.top = `${top}px`;
+      tip.style.top  = `${top}px`;
       tip.style.left = `${left}px`;
     });
   }
 
   function deactivateHelpMode() {
-    // Remove highlight classes
     document.querySelectorAll('.jocarsa-pink-highlight')
       .forEach(el => el.classList.remove('jocarsa-pink-highlight'));
 
-    // Remove all tooltip nodes
-    tooltips.forEach((tip) => {
+    tooltips.forEach(tip => {
       if (tip.parentNode) tip.parentNode.removeChild(tip);
     });
-    // Clear the map (if supported)
     if (tooltips.clear) tooltips.clear();
   }
 
@@ -81,14 +81,12 @@
     document.body.appendChild(btn);
   }
 
-  // Expose API
   window.jocarsaPink = {
     toggleHelpMode,
     activateHelpMode,
     deactivateHelpMode
   };
 
-  // Auto-inject button on load
   window.addEventListener('load', createHelpButton);
 })();
 
