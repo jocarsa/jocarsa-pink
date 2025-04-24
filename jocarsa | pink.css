@@ -1,3 +1,5 @@
+/* File: jocarsa-pink.css */
+
 /* Namespace all classes under jocarsa-pink- to avoid collisions */
 
 /* The floating "?" button */
@@ -30,43 +32,24 @@
 
 /* Highlighted elements with an outline offset to simulate margin */
 .jocarsa-pink-highlight {
-  position: relative; /* Ensure proper positioning for pseudo-elements */
-  /*box-shadow: 0 0 3px 2px pink;*/ /* Existing shadow */
-  outline: 2px solid pink;      /* Outline to highlight the element */
-  outline-offset: 8px;         /* Creates a gap between the element and the outline */
-  border-radius:30px;
+  position: relative; /* Ensure proper positioning for absolute tooltips */
+  outline: 2px solid pink;
+  outline-offset: 8px;
+  border-radius: 30px;
 }
 
-/* Floating title text using the title attribute */
-.jocarsa-pink-highlight::after {
-  content: attr(title);
+/* New: generic tooltip style (we no longer use ::before/::after) */
+.jocarsa-pink-tooltip {
   position: absolute;
   background: #ffe5e5;
-  padding: 3px 6px;
   color: #000;
   font-size: 12px;
+  padding: 4px 8px;
   border: 1px solid red;
   border-radius: 3px;
-  top: -30px;     /* Position above the element */
-  left: 0;
   white-space: nowrap;
-  z-index: 999999;
+  z-index: 100000;
   pointer-events: none;
-  opacity: 0.9;
-}
-
-/* Optional: Simple arrow or triangular tip for the floating text */
-.jocarsa-pink-highlight::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 10px;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid red;
-  z-index: 999999;
   opacity: 0.9;
 }
 
