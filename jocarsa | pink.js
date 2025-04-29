@@ -6,7 +6,6 @@
  */
 (function () {
   let helpModeActive = false;
-  const tooltips = new WeakMap();
 
   function toggleHelpMode() {
     helpModeActive = !helpModeActive;
@@ -27,36 +26,22 @@
       tip.className = 'jocarsa-pink-tooltip';
       tip.textContent = el.getAttribute('title');
       document.body.appendChild(tip);
-      tooltips.set(el, tip);
 
       const rect = el.getBoundingClientRect();
+      const elCenterX = rect.left + rect.width / 2;
+      const elCenterY = rect.top + rect.height / 2;
 
-      // Compute element’s center
-      const elCenterX = rect.left + rect.width  / 2;
-      const elCenterY = rect.top  + rect.height / 2;
-
-      // Decide horizontal: if element’s center is left of screen center, place tooltip to right
       const placeRight = elCenterX < centerX;
-      // Decide vertical: if element’s center is above screen center, place tooltip below
       const placeBelow = elCenterY < centerY;
-
-      // Measure tooltip
       const { offsetWidth: tw, offsetHeight: th } = tip;
-      let top, left;
 
-      // Vertical offset
-      if (placeBelow) {
-        top  = window.scrollY + rect.bottom + 6;
-      } else {
-        top  = window.scrollY + rect.top    - th    - 6;
-      }
+      let top  = placeBelow
+        ? window.scrollY + rect.bottom + 6
+        : window.scrollY + rect.top    - th    - 6;
 
-      // Horizontal offset
-      if (placeRight) {
-        left = window.scrollX + rect.right  + 6;
-      } else {
-        left = window.scrollX + rect.left   - tw    - 6;
-      }
+      let left = placeRight
+        ? window.scrollX + rect.right  + 6
+        : window.scrollX + rect.left   - tw    - 6;
 
       tip.style.top  = `${top}px`;
       tip.style.left = `${left}px`;
@@ -64,13 +49,13 @@
   }
 
   function deactivateHelpMode() {
+    // remove highlights
     document.querySelectorAll('.jocarsa-pink-highlight')
       .forEach(el => el.classList.remove('jocarsa-pink-highlight'));
 
-    tooltips.forEach(tip => {
-      if (tip.parentNode) tip.parentNode.removeChild(tip);
-    });
-    if (tooltips.clear) tooltips.clear();
+    // remove all tooltips
+    document.querySelectorAll('.jocarsa-pink-tooltip')
+      .forEach(tip => tip.remove());
   }
 
   function createHelpButton() {
